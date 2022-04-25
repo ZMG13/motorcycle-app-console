@@ -1,13 +1,13 @@
-import java.util.*
+
+import utils.ScannerInput
 import java.lang.System.exit
-val scanner = Scanner(System.`in`)
 fun main(args: Array<String>) {
     runMenu()
 }
 
 
-fun mainMenu() : Int {
-    print(""" 
+fun mainMenu() :Int {
+    return ScannerInput.readNextInt(""" 
          > ----------------------------------
          > |        MOTORCYCLE APP          |
          > ----------------------------------
@@ -20,7 +20,7 @@ fun mainMenu() : Int {
          > |   0) Exit                      |
          > ----------------------------------
          > ==>> """.trimMargin(">"))
-    return scanner.nextInt()
+
 }
 
 fun runMenu() {
