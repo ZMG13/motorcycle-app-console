@@ -1,12 +1,16 @@
 
+import controllers.MotorcycleAPI
+import models.Motorcycle
 import mu.KotlinLogging
 import utils.ScannerInput
+import utils.ScannerInput.readNextInt
+import utils.ScannerInput.readNextLine
 import java.lang.System.exit
 private val logger = KotlinLogging.logger {}
 fun main(args: Array<String>) {
     runMenu()
 }
-
+private val motorcycleAPI = MotorcycleAPI()
 
 fun mainMenu() :Int {
     return ScannerInput.readNextInt(""" 
@@ -40,11 +44,22 @@ fun runMenu() {
 }
 
 fun addMotorcycle(){
-    logger.info { "addMotorcycle() function invoked" }
+   // logger.info { "addMotorcycle() function invoked" }
+    val motorcycleBrand = readNextLine("Enter motorcycle brand: ")
+    val motorcycleLicence = readNextInt("Enter a license number (1, 2, 3, 4): ")
+    val motorcycleType = readNextLine("Enter motorcycle type: ")
+    val isAdded = motorcycleAPI.add(Motorcycle(motorcycleBrand, motorcycleLicence, motorcycleType, false))
+
+    if (isAdded) {
+        println("Added Successfully")
+    } else {
+        println("Add Failed")
+    }
 }
 
 fun listMotorcycles(){
-    logger.info { "listMotorcycles() function invoked" }
+   // logger.info { "listMotorcycles() function invoked" }
+    println(motorcycleAPI.listAllMotorcycles())
 }
 
 fun updateMotorcycle(){
