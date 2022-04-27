@@ -4,6 +4,7 @@ import models.Motorcycle
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -54,7 +55,8 @@ class MotorcycleAPITest {
         val newMotorcycle = Motorcycle("indian", 2, "Cruiser", false)
         assertTrue(emptyMotorcycles!!.add(newMotorcycle))
     } */
-
+    @Nested
+    inner class AddNotes {
         @Test
         fun `adding a Motorcycle to a populated list adds to ArrayList`() {
             val newMotorcycle = Motorcycle("harley", 1, "Cruiser", false)
@@ -63,7 +65,8 @@ class MotorcycleAPITest {
             assertEquals(6, populatedMotorcycles!!.numberOfMotorcycles())
             assertEquals(
                 newMotorcycle,
-                populatedMotorcycles!!.findMotorcycle(populatedMotorcycles!!.numberOfMotorcycles() - 1))
+                populatedMotorcycles!!.findMotorcycle(populatedMotorcycles!!.numberOfMotorcycles() - 1)
+            )
         }
 
         @Test
@@ -75,4 +78,27 @@ class MotorcycleAPITest {
             assertEquals(newMotorcycle, emptyMotorcycles!!.findMotorcycle(emptyMotorcycles!!.numberOfMotorcycles() - 1))
         }
     }
+
+    @Nested
+    inner class ListNotes {
+
+        @Test
+        fun `listAllMotorcycles returns No Motorcycles Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyMotorcycles!!.numberOfMotorcycles())
+            assertTrue(emptyMotorcycles!!.listAllMotorcycles().lowercase().contains("no Motorcycles"))
+        }
+
+        @Test
+        fun `listAllMotorcycles returns Motorcycles when ArrayList has Motorcycles stored`() {
+            assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
+            val motorcycleString = populatedMotorcycles!!.listAllMotorcycles().lowercase()
+            assertTrue(motorcycleString.contains("harley"))
+            assertTrue(motorcycleString.contains("honda"))
+            assertTrue(motorcycleString.contains("ktm"))
+            assertTrue(motorcycleString.contains("kawazaki"))
+            assertTrue(motorcycleString.contains("suzuki"))
+        }
+    }
+
+}
 
