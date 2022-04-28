@@ -201,6 +201,29 @@ class MotorcycleAPITest {
             assertEquals(3, populatedMotorcycles!!.numberOfMotorcycles())
         }
     }
+    @Nested
+    inner class UpdateMotorcycles {
+        @Test
+        fun `updating a Motorcycle that does not exist returns false`(){
+            assertFalse(populatedMotorcycles!!.updateMotorcycle(6, Motorcycle("harley", 2, "cruiser", false)))
+            assertFalse(populatedMotorcycles!!.updateMotorcycle(-1, Motorcycle("honda", 2, "sport", false)))
+            assertFalse(emptyMotorcycles!!.updateMotorcycle(0, Motorcycle("ktm", 2, "dirt", false)))
+        }
 
+        @Test
+        fun `updating a Motorcycle that exists returns true and updates`() {
+            //check note 5 exists and check the contents
+            assertEquals(suzuki, populatedMotorcycles!!.findMotorcycle(4))
+            assertEquals("suzuki", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleBrand)
+            assertEquals(1, populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleLicence)
+            assertEquals("sport", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleType)
+
+            //update Motorcycle 5 with new information and ensure contents updated successfully
+            assertTrue(populatedMotorcycles!!.updateMotorcycle(4, Motorcycle("ktm", 2, "Cruiser", false)))
+            assertEquals("ktm", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleBrand)
+            assertEquals(2, populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleLicence)
+            assertEquals("Cruiser", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleType)
+        }
+    }
 }
 

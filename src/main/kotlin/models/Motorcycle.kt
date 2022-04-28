@@ -1,7 +1,7 @@
 package models
 
-data class Motorcycle(val MotorcycleBrand: String,
-                val MotorcycleLicence: Int,
-                val MotorcycleType: String,
-                val isMotorcycleArchived :Boolean){
+data class Motorcycle(var MotorcycleBrand: String,
+                var MotorcycleLicence: Int,
+                var MotorcycleType: String,
+                var isMotorcycleArchived :Boolean){
 }
