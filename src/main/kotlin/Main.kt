@@ -67,7 +67,19 @@ fun updateMotorcycle(){
 }
 
 fun deleteMotorcycle(){
-    logger.info { "deleteMotorcycle() function invoked" }
+   // logger.info { "deleteMotorcycle() function invoked" }
+    listMotorcycles()
+    if (motorcycleAPI.numberOfMotorcycles() > 0) {
+        //only ask the user to choose the note to delete if notes exist
+        val indexToDelete = readNextInt("Enter the index of the motorcycle to delete: ")
+        //pass the index of the note to MotorcycleAPI for deleting and check for success.
+        val motorcycleToDelete = motorcycleAPI.deleteMotorcycle(indexToDelete)
+        if (motorcycleToDelete != null) {
+            println("Delete Successful! Deleted Motorcycle: ${motorcycleToDelete.MotorcycleBrand}")
+        } else {
+            println("Delete NOT Successful")
+        }
+    }
 }
 
 fun exitApp(){

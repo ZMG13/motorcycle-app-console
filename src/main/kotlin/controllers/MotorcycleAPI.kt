@@ -110,4 +110,10 @@ class MotorcycleAPI {
         }
         return counter
     }
+
+    fun deleteMotorcycle(indexToDelete: Int): Motorcycle? {
+        return if (isValidListIndex(indexToDelete, motorcycles)) {
+            motorcycles.removeAt(indexToDelete)
+        } else null
+    }
 }
