@@ -75,7 +75,7 @@ fun deleteMotorcycle(){
         //pass the index of the note to MotorcycleAPI for deleting and check for success.
         val motorcycleToDelete = motorcycleAPI.deleteMotorcycle(indexToDelete)
         if (motorcycleToDelete != null) {
-            println("Delete Successful! Deleted Motorcycle: ${motorcycleToDelete.MotorcycleBrand}")
+            println("Delete Successful! Deleted Motorcycle: ${motorcycleToDelete} ")
         } else {
             println("Delete NOT Successful")
         }

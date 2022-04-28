@@ -2,8 +2,11 @@ package controllers
 
 import models.Motorcycle
 
-private var motorcycles = ArrayList<Motorcycle>()
+
 class MotorcycleAPI {
+
+    private var motorcycles = ArrayList<Motorcycle>()
+
     fun add(motorcycle: Motorcycle): Boolean {
         return motorcycles.add(motorcycle)
     }
@@ -49,7 +52,7 @@ class MotorcycleAPI {
 
     fun listArchivedMotorcycles(): String {
         return if (numberOfArchivedMotorcycles() == 0) {
-            "No archived Motorcycle stored"
+            "No archived Motorcycles stored"
         } else {
             var listOfArchivedMotorcycles = ""
             for (motorcycle in motorcycles) {
