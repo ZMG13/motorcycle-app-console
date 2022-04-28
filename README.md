@@ -12,3 +12,7 @@ notes-app-console was created for assignment three of our software systems two m
 - deleting a motorcycle
 - includes logging capabilities 
 - scanner input included for robust user 
+# v2.0 features 
+- added test functionality 
+- worked on issues
+- added counting 
