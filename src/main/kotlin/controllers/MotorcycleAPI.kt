@@ -1,15 +1,20 @@
 package controllers
 
 import models.Motorcycle
+import persistence.Serializer
+import persistence.XMLSerializer
+import java.io.File
 
 
-class MotorcycleAPI {
+class MotorcycleAPI(serializerType: Serializer) {
 
     private var motorcycles = ArrayList<Motorcycle>()
+    private var serializer: Serializer = serializerType
 
     fun add(motorcycle: Motorcycle): Boolean {
         return motorcycles.add(motorcycle)
     }
+
     fun listAllMotorcycles(): String {
         return if (motorcycles.isEmpty()) {
             "No motorcycles stored"
@@ -21,6 +26,7 @@ class MotorcycleAPI {
             listOfMotorcycle
         }
     }
+
     fun numberOfMotorcycles(): Int {
         return motorcycles.size
     }
@@ -135,7 +141,18 @@ class MotorcycleAPI {
         //if the note was not found, return false, indicating that the update was not successful
         return false
     }
-    fun isValidIndex(index: Int) :Boolean{
+
+    fun isValidIndex(index: Int): Boolean {
         return isValidListIndex(index, motorcycles);
     }
+    @Throws(Exception::class)
+    fun load() {
+        motorcycles = serializer.read() as ArrayList<Motorcycle>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(motorcycles)
+    }
 }
+
