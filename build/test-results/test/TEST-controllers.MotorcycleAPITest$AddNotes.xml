@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="controllers.MotorcycleAPITest$AddNotes" tests="2" skipped="0" failures="2" errors="0" timestamp="2022-04-27T02:50:03" hostname="ZACH-LAPTOP" time="0.039">
+<testsuite name="controllers.MotorcycleAPITest$AddNotes" tests="2" skipped="0" failures="2" errors="0" timestamp="2022-04-28T03:14:03" hostname="ZACH-LAPTOP" time="0.003">
   <properties/>
-  <testcase name="adding a Motorcycle to an empty list adds to ArrayList()" classname="controllers.MotorcycleAPITest$AddNotes" time="0.037">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;5&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;5&gt;
+  <testcase name="adding a Motorcycle to an empty list adds to ArrayList()" classname="controllers.MotorcycleAPITest$AddNotes" time="0.001">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;25&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;25&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
@@ -12,7 +12,7 @@
 	at kotlin.test.AssertionsKt.assertEquals(Unknown Source)
 	at kotlin.test.AssertionsKt__AssertionsKt.assertEquals$default(Assertions.kt:62)
 	at kotlin.test.AssertionsKt.assertEquals$default(Unknown Source)
-	at controllers.MotorcycleAPITest$AddNotes.adding a Motorcycle to an empty list adds to ArrayList(MotorcycleAPITest.kt:75)
+	at controllers.MotorcycleAPITest$AddNotes.adding a Motorcycle to an empty list adds to ArrayList(MotorcycleAPITest.kt:77)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -116,7 +116,7 @@
 </failure>
   </testcase>
   <testcase name="adding a Motorcycle to a populated list adds to ArrayList()" classname="controllers.MotorcycleAPITest$AddNotes" time="0.001">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;5&gt; but was: &lt;10&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;5&gt; but was: &lt;10&gt;
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;5&gt; but was: &lt;30&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;5&gt; but was: &lt;30&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
@@ -126,7 +126,7 @@
 	at kotlin.test.AssertionsKt.assertEquals(Unknown Source)
 	at kotlin.test.AssertionsKt__AssertionsKt.assertEquals$default(Assertions.kt:62)
 	at kotlin.test.AssertionsKt.assertEquals$default(Unknown Source)
-	at controllers.MotorcycleAPITest$AddNotes.adding a Motorcycle to a populated list adds to ArrayList(MotorcycleAPITest.kt:63)
+	at controllers.MotorcycleAPITest$AddNotes.adding a Motorcycle to a populated list adds to ArrayList(MotorcycleAPITest.kt:65)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
