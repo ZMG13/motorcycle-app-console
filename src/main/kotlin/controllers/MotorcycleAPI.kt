@@ -33,4 +33,51 @@ class MotorcycleAPI {
         return (index >= 0 && index < list.size)
     }
 
+    fun listActiveMotorcycles(): String {
+        return if (numberOfActiveMotorcycles() == 0) {
+            "No active Motorcycles stored"
+        } else {
+            var listOfActiveMotorcycles = ""
+            for (motorcycle in motorcycles) {
+                if (!motorcycle.isMotorcycleArchived) {
+                    listOfActiveMotorcycles += "${motorcycles.indexOf(motorcycle)}: $motorcycle \n"
+                }
+            }
+            listOfActiveMotorcycles
+        }
+    }
+
+    fun listArchivedMotorcycles(): String {
+        return if (numberOfArchivedMotorcycles() == 0) {
+            "No archived Motorcycle stored"
+        } else {
+            var listOfArchivedMotorcycles = ""
+            for (motorcycle in motorcycles) {
+                if (motorcycle.isMotorcycleArchived) {
+                    listOfArchivedMotorcycles += "${motorcycles.indexOf(motorcycle)}: $motorcycle \n"
+                }
+            }
+            listOfArchivedMotorcycles
+        }
+    }
+
+    fun numberOfArchivedMotorcycles(): Int {
+        var counter = 0
+        for (motorcycle in motorcycles) {
+            if (motorcycle.isMotorcycleArchived) {
+                counter++
+            }
+        }
+        return counter
+    }
+
+    fun numberOfActiveMotorcycles(): Int {
+        var counter = 0
+        for (motorcycle in motorcycles) {
+            if (!motorcycle.isMotorcycleArchived) {
+                counter++
+            }
+        }
+        return counter
+    }
 }
