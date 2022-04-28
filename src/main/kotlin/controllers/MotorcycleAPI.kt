@@ -2,8 +2,11 @@ package controllers
 
 import models.Motorcycle
 
-private var motorcycles = ArrayList<Motorcycle>()
+
 class MotorcycleAPI {
+
+    private var motorcycles = ArrayList<Motorcycle>()
+
     fun add(motorcycle: Motorcycle): Boolean {
         return motorcycles.add(motorcycle)
     }
@@ -49,7 +52,7 @@ class MotorcycleAPI {
 
     fun listArchivedMotorcycles(): String {
         return if (numberOfArchivedMotorcycles() == 0) {
-            "No archived Motorcycle stored"
+            "No archived Motorcycles stored"
         } else {
             var listOfArchivedMotorcycles = ""
             for (motorcycle in motorcycles) {
@@ -115,5 +118,24 @@ class MotorcycleAPI {
         return if (isValidListIndex(indexToDelete, motorcycles)) {
             motorcycles.removeAt(indexToDelete)
         } else null
+    }
+
+    fun updateMotorcycle(indexToUpdate: Int, note: Motorcycle?): Boolean {
+        //find the Motorcycle object by the index number
+        val foundMotorcycle = findMotorcycle(indexToUpdate)
+
+        //if the Motorcycle exists, use the Motorcycle details passed as parameters to update the found Motorcycle in the ArrayList.
+        if ((foundMotorcycle != null) && (note != null)) {
+            foundMotorcycle.MotorcycleBrand = note.MotorcycleBrand
+            foundMotorcycle.MotorcycleLicence = note.MotorcycleLicence
+            foundMotorcycle.MotorcycleType = note.MotorcycleType
+            return true
+        }
+
+        //if the note was not found, return false, indicating that the update was not successful
+        return false
+    }
+    fun isValidIndex(index: Int) :Boolean{
+        return isValidListIndex(index, motorcycles);
     }
 }

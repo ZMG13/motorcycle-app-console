@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.MotorcycleAPITest$DeleteMotorcycles" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-28T10:15:20" hostname="ZACH-LAPTOP" time="0.004">
+  <properties/>
+  <testcase name="deleting a Motorcycle that does not exist, returns null()" classname="controllers.MotorcycleAPITest$DeleteMotorcycles" time="0.003"/>
+  <testcase name="deleting a motorcycle that exists delete and returns deleted object()" classname="controllers.MotorcycleAPITest$DeleteMotorcycles" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

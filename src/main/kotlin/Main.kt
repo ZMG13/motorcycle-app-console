@@ -63,7 +63,28 @@ fun listMotorcycles(){
 }
 
 fun updateMotorcycle(){
-    logger.info { "updateMotorcycle() function invoked" }
+   // logger.info { "updateMotorcycle() function invoked" }
+    listMotorcycles()
+    if (motorcycleAPI.numberOfMotorcycles() > 0) {
+        //only ask the user to choose the Motorcycle if Motorcycle exist
+        val indexToUpdate = readNextInt("Enter the index of the Motorcycle to update: ")
+        if (motorcycleAPI.isValidIndex(indexToUpdate)) {
+            val MotorcycleBrand = readNextLine("Enter the brand of Motorcycle: ")
+            val MotorcycleLicence = readNextInt("Enter Motorcycle license 1-4 ")
+            val MotorcycleType = readNextLine("Enter type of Motorcycle: ")
+
+            //pass the index of the note and the new note details to NoteAPI for updating and check for success.
+            if (motorcycleAPI.updateMotorcycle(indexToUpdate, Motorcycle(MotorcycleBrand, MotorcycleLicence, MotorcycleType, false))){
+                println("Update Successful")
+            } else {
+                println("Update Failed")
+            }
+        } else {
+            println("There are no notes for this index number")
+        }
+
+    }
+
 }
 
 fun deleteMotorcycle(){
@@ -75,7 +96,7 @@ fun deleteMotorcycle(){
         //pass the index of the note to MotorcycleAPI for deleting and check for success.
         val motorcycleToDelete = motorcycleAPI.deleteMotorcycle(indexToDelete)
         if (motorcycleToDelete != null) {
-            println("Delete Successful! Deleted Motorcycle: ${motorcycleToDelete.MotorcycleBrand}")
+            println("Delete Successful! Deleted Motorcycle: ${motorcycleToDelete} ")
         } else {
             println("Delete NOT Successful")
         }

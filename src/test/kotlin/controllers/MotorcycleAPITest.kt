@@ -88,7 +88,7 @@ class MotorcycleAPITest {
         @Test
         fun `listAllMotorcycles returns No Motorcycles Stored message when ArrayList is empty`() {
             assertEquals(0, emptyMotorcycles!!.numberOfMotorcycles())
-            assertTrue(emptyMotorcycles!!.listAllMotorcycles().lowercase().contains("no Motorcycles"))
+            assertTrue(emptyMotorcycles!!.listAllMotorcycles().lowercase().contains("no motorcycles"))
         }
 
         @Test
@@ -107,7 +107,7 @@ class MotorcycleAPITest {
     fun `listActiveMotorcycles returns no active motorcycles stored when ArrayList is empty`() {
         assertEquals(0, emptyMotorcycles!!.numberOfActiveMotorcycles())
         assertTrue(
-            emptyMotorcycles!!.listActiveMotorcycles().lowercase().contains("no active Motorcycles")
+            emptyMotorcycles!!.listActiveMotorcycles().lowercase().contains("no active motorcycles")
         )
     }
 
@@ -153,8 +153,9 @@ class MotorcycleAPITest {
         //License 1 (1 Motorcycle), 2 (Motorcycle), 3 (1 Motorcycle). 4 (2 Motorcycle)
         assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
         val priority2String = populatedMotorcycles!!.listMotorcyclesBySelectedLicense(2).lowercase()
-        assertTrue(priority2String.contains("no Motorcycles"))
+        assertTrue(priority2String.contains("harley"))
         assertTrue(priority2String.contains("2"))
+        assertFalse(priority2String.contains("honda"))
     }
 
     @Test
@@ -162,23 +163,23 @@ class MotorcycleAPITest {
         //Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
         assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
         val priority1String = populatedMotorcycles!!.listMotorcyclesBySelectedLicense(1).lowercase()
-        assertTrue(priority1String.contains("1 note"))
-        assertTrue(priority1String.contains("priority 1"))
-        assertTrue(priority1String.contains("summer holiday"))
-        assertFalse(priority1String.contains("swim"))
-        assertFalse(priority1String.contains("learning kotlin"))
-        assertFalse(priority1String.contains("code app"))
-        assertFalse(priority1String.contains("test app"))
+        assertTrue(priority1String.contains("sport"))
+        assertTrue(priority1String.contains("suzuki"))
+        assertFalse(priority1String.contains("honda"))
+        assertFalse(priority1String.contains("cruiser"))
+        assertFalse(priority1String.contains("harley"))
+        assertFalse(priority1String.contains("ducati"))
+        assertFalse(priority1String.contains("ford"))
 
 
         val priority4String = populatedMotorcycles!!.listMotorcyclesBySelectedLicense(4).lowercase(Locale.getDefault())
-        assertTrue(priority4String.contains("2 note"))
-        assertTrue(priority4String.contains("priority 4"))
-        assertFalse(priority4String.contains("swim"))
-        assertTrue(priority4String.contains("code app"))
-        assertTrue(priority4String.contains("test app"))
-        assertFalse(priority4String.contains("learning kotlin"))
-        assertFalse(priority4String.contains("summer holiday"))
+        assertTrue(priority4String.contains("ktm"))
+        assertTrue(priority4String.contains("sport"))
+        assertFalse(priority4String.contains("honda"))
+        assertTrue(priority4String.contains("dirt"))
+        assertFalse(priority4String.contains("suzuki"))
+        assertFalse(priority4String.contains("cruiser"))
+        assertFalse(priority4String.contains("harley"))
     }
 
     @Nested
@@ -200,6 +201,29 @@ class MotorcycleAPITest {
             assertEquals(3, populatedMotorcycles!!.numberOfMotorcycles())
         }
     }
+    @Nested
+    inner class UpdateMotorcycles {
+        @Test
+        fun `updating a Motorcycle that does not exist returns false`(){
+            assertFalse(populatedMotorcycles!!.updateMotorcycle(6, Motorcycle("harley", 2, "cruiser", false)))
+            assertFalse(populatedMotorcycles!!.updateMotorcycle(-1, Motorcycle("honda", 2, "sport", false)))
+            assertFalse(emptyMotorcycles!!.updateMotorcycle(0, Motorcycle("ktm", 2, "dirt", false)))
+        }
 
+        @Test
+        fun `updating a Motorcycle that exists returns true and updates`() {
+            //check note 5 exists and check the contents
+            assertEquals(suzuki, populatedMotorcycles!!.findMotorcycle(4))
+            assertEquals("suzuki", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleBrand)
+            assertEquals(1, populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleLicence)
+            assertEquals("sport", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleType)
+
+            //update Motorcycle 5 with new information and ensure contents updated successfully
+            assertTrue(populatedMotorcycles!!.updateMotorcycle(4, Motorcycle("ktm", 2, "Cruiser", false)))
+            assertEquals("ktm", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleBrand)
+            assertEquals(2, populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleLicence)
+            assertEquals("Cruiser", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleType)
+        }
+    }
 }
 
