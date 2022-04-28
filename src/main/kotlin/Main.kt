@@ -2,6 +2,7 @@
 import controllers.MotorcycleAPI
 import models.Motorcycle
 import mu.KotlinLogging
+import persistence.JSONSerializer
 import persistence.XMLSerializer
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
@@ -9,8 +10,8 @@ import utils.ScannerInput.readNextLine
 import java.io.File
 import java.lang.System.exit
 private val logger = KotlinLogging.logger {}
-private val motorcycleAPI = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
-
+//private val motorcycleAPI = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
+private val motorcycleAPI = MotorcycleAPI(JSONSerializer(File("motorcycles.json")))
 fun main(args: Array<String>) {
     runMenu()
 }
