@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 
 class MotorcycleAPITest {
     private var harley: Motorcycle? = null
@@ -179,5 +180,26 @@ class MotorcycleAPITest {
         assertFalse(priority4String.contains("learning kotlin"))
         assertFalse(priority4String.contains("summer holiday"))
     }
+
+    @Nested
+    inner class DeleteMotorcycles {
+
+        @Test
+        fun `deleting a Motorcycle that does not exist, returns null`() {
+            assertNull(emptyMotorcycles!!.deleteMotorcycle(0))
+            assertNull(populatedMotorcycles!!.deleteMotorcycle(-1))
+            assertNull(populatedMotorcycles!!.deleteMotorcycle(5))
+        }
+
+        @Test
+        fun `deleting a motorcycle that exists delete and returns deleted object`() {
+            assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
+            assertEquals(suzuki, populatedMotorcycles!!.deleteMotorcycle(4))
+            assertEquals(4, populatedMotorcycles!!.numberOfMotorcycles())
+            assertEquals(harley, populatedMotorcycles!!.deleteMotorcycle(0))
+            assertEquals(3, populatedMotorcycles!!.numberOfMotorcycles())
+        }
+    }
+
 }
 
