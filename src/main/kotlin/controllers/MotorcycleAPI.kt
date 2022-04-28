@@ -80,4 +80,34 @@ class MotorcycleAPI {
         }
         return counter
     }
+
+    fun listMotorcyclesBySelectedLicense(license: Int): String {
+        return if (motorcycles.isEmpty()) {
+            "No motorcycles stored"
+        } else {
+            var listOfMotorcycles = ""
+            for (i in motorcycles.indices) {
+                if (motorcycles[i].MotorcycleLicence == license) {
+                    listOfMotorcycles +=
+                        """$i: ${motorcycles[i]}
+                        """.trimIndent()
+                }
+            }
+            if (listOfMotorcycles.equals("")) {
+                "No motorcycle with license: $license"
+            } else {
+                "${numberOfMotorcyclesByLicense(license)} motorcycles with priority $license: $listOfMotorcycles"
+            }
+        }
+    }
+
+    fun numberOfMotorcyclesByLicense(license: Int): Int {
+        var counter = 0
+        for (motorcycle in motorcycles) {
+            if (motorcycle.MotorcycleLicence == license) {
+                counter++
+            }
+        }
+        return counter
+    }
 }

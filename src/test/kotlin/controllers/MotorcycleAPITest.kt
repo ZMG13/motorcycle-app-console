@@ -139,5 +139,45 @@ class MotorcycleAPITest {
         assertFalse(archivedNotesString.contains("kawazaki"))
         assertTrue(archivedNotesString.contains("suzuki"))
     }
+
+    @Test
+    fun `listMotorcyclesBySelectedLicense returns No Motorcycles when ArrayList is empty`() {
+        assertEquals(0, emptyMotorcycles!!.numberOfMotorcycles())
+        assertTrue(emptyMotorcycles!!.listMotorcyclesBySelectedLicense(1).lowercase().contains("no motorcycles")
+        )
+    }
+
+    @Test
+    fun `listMotorcyclesBySelectedLicense returns no Motorcycles when no Motorcycles of that license exist`() {
+        //License 1 (1 Motorcycle), 2 (Motorcycle), 3 (1 Motorcycle). 4 (2 Motorcycle)
+        assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
+        val priority2String = populatedMotorcycles!!.listMotorcyclesBySelectedLicense(2).lowercase()
+        assertTrue(priority2String.contains("no Motorcycles"))
+        assertTrue(priority2String.contains("2"))
+    }
+
+    @Test
+    fun `listMotorcyclesBySelectedLicense returns all Motorcycles that match that license when Motorcycles of that license exist`() {
+        //Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+        assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
+        val priority1String = populatedMotorcycles!!.listMotorcyclesBySelectedLicense(1).lowercase()
+        assertTrue(priority1String.contains("1 note"))
+        assertTrue(priority1String.contains("priority 1"))
+        assertTrue(priority1String.contains("summer holiday"))
+        assertFalse(priority1String.contains("swim"))
+        assertFalse(priority1String.contains("learning kotlin"))
+        assertFalse(priority1String.contains("code app"))
+        assertFalse(priority1String.contains("test app"))
+
+
+        val priority4String = populatedMotorcycles!!.listMotorcyclesBySelectedLicense(4).lowercase(Locale.getDefault())
+        assertTrue(priority4String.contains("2 note"))
+        assertTrue(priority4String.contains("priority 4"))
+        assertFalse(priority4String.contains("swim"))
+        assertTrue(priority4String.contains("code app"))
+        assertTrue(priority4String.contains("test app"))
+        assertFalse(priority4String.contains("learning kotlin"))
+        assertFalse(priority4String.contains("summer holiday"))
+    }
 }
 
