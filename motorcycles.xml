@@ -1,0 +1,22 @@
+<object-stream>
+  <list>
+    <models.Motorcycle>
+      <MotorcycleBrand>honda</MotorcycleBrand>
+      <MotorcycleLicence>3</MotorcycleLicence>
+      <MotorcycleType>cruiser</MotorcycleType>
+      <isMotorcycleArchived>true</isMotorcycleArchived>
+    </models.Motorcycle>
+    <models.Motorcycle>
+      <MotorcycleBrand>suzuki</MotorcycleBrand>
+      <MotorcycleLicence>1</MotorcycleLicence>
+      <MotorcycleType>sport</MotorcycleType>
+      <isMotorcycleArchived>true</isMotorcycleArchived>
+    </models.Motorcycle>
+    <models.Motorcycle>
+      <MotorcycleBrand>harley</MotorcycleBrand>
+      <MotorcycleLicence>2</MotorcycleLicence>
+      <MotorcycleType>cruiser</MotorcycleType>
+      <isMotorcycleArchived>false</isMotorcycleArchived>
+    </models.Motorcycle>
+  </list>
+</object-stream>

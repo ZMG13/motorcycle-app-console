@@ -2,15 +2,20 @@
 import controllers.MotorcycleAPI
 import models.Motorcycle
 import mu.KotlinLogging
+import persistence.JSONSerializer
+import persistence.XMLSerializer
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import java.io.File
 import java.lang.System.exit
 private val logger = KotlinLogging.logger {}
+//private val motorcycleAPI = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
+private val motorcycleAPI = MotorcycleAPI(JSONSerializer(File("motorcycles.json")))
 fun main(args: Array<String>) {
     runMenu()
 }
-private val motorcycleAPI = MotorcycleAPI()
+//private val motorcycleAPI = MotorcycleAPI()
 
 fun mainMenu() :Int {
     return ScannerInput.readNextInt(""" 
@@ -23,6 +28,8 @@ fun mainMenu() :Int {
          > |   3) Update a motorcycle       |
          > |   4) Delete a motorcycle       |
          > ----------------------------------
+         > |   20) Save motorcycles         |
+         > |   21) Load motorcycles         |
          > |   0) Exit                      |
          > ----------------------------------
          > ==>> """.trimMargin(">"))
@@ -37,6 +44,8 @@ fun runMenu() {
             2  -> listMotorcycles()
             3  -> updateMotorcycle()
             4  -> deleteMotorcycle()
+            20 -> save()
+            21 -> load()
             0  -> exitApp()
             else -> System.out.println("Invalid option entered: ${option}")
         }
@@ -106,4 +115,20 @@ fun deleteMotorcycle(){
 fun exitApp(){
     println("Exiting see ya!")
     exit(0)
+}
+
+fun save() {
+    try {
+        motorcycleAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+fun load() {
+    try {
+        motorcycleAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
+    }
 }

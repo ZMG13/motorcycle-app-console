@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.JSONSerializer
+import persistence.XMLSerializer
+import java.io.File
 import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -17,8 +20,8 @@ class MotorcycleAPITest {
     private var ktm: Motorcycle? = null
     private var kawazaki: Motorcycle? = null
     private var suzuki: Motorcycle? = null
-    private var populatedMotorcycles: MotorcycleAPI? = MotorcycleAPI()
-    private var emptyMotorcycles: MotorcycleAPI? = MotorcycleAPI()
+    private var populatedMotorcycles: MotorcycleAPI? = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
+    private var emptyMotorcycles: MotorcycleAPI? = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
 
     @BeforeEach
     fun setup() {
@@ -224,6 +227,85 @@ class MotorcycleAPITest {
             assertEquals(2, populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleLicence)
             assertEquals("Cruiser", populatedMotorcycles!!.findMotorcycle(4)!!.MotorcycleType)
         }
+    }
+    @Nested
+    inner class PersistenceTests {
+
+        @Test
+        fun `saving and loading an empty collection in XML doesn't crash app`() {
+            // Saving an empty notes.XML file.
+            val storingMotorcycles = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
+            storingMotorcycles.store()
+
+            //Loading the empty Motorcycles.xml file into a new object
+            val loadedMotorcycles = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
+            loadedMotorcycles.load()
+
+            //Comparing the source of the Motorcycles (storingMotorcycles) with the XML loaded Motorcycles (loadedNotes)
+            assertEquals(0, storingMotorcycles.numberOfMotorcycles())
+            assertEquals(0, loadedMotorcycles.numberOfMotorcycles())
+            assertEquals(storingMotorcycles.numberOfMotorcycles(), loadedMotorcycles.numberOfMotorcycles())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in XML doesn't loose data`() {
+            // Storing 3 Motorcycles to the Motorcycles.XML file.
+            val storingMotorcycles = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
+            storingMotorcycles.add(honda!!)
+            storingMotorcycles.add(suzuki!!)
+            storingMotorcycles.add(harley!!)
+            storingMotorcycles.store()
+
+            //Loading Motorcycles.xml into a different collection
+            val loadedMotorcycles = MotorcycleAPI(XMLSerializer(File("motorcycles.xml")))
+            loadedMotorcycles.load()
+
+            //Comparing the source of the Motorcycles (storingMotorcycles) with the XML loaded Motorcycles (loadedMotorcycles)
+            assertEquals(3, storingMotorcycles.numberOfMotorcycles())
+            assertEquals(3, loadedMotorcycles.numberOfMotorcycles())
+            assertEquals(storingMotorcycles.numberOfMotorcycles(), loadedMotorcycles.numberOfMotorcycles())
+            assertEquals(storingMotorcycles.findMotorcycle(0), loadedMotorcycles.findMotorcycle(0))
+            assertEquals(storingMotorcycles.findMotorcycle(1), loadedMotorcycles.findMotorcycle(1))
+            assertEquals(storingMotorcycles.findMotorcycle(2), loadedMotorcycles.findMotorcycle(2))
+        }
+    }
+
+    @Test
+    fun `saving and loading an empty collection in JSON doesn't crash app`() {
+        // Saving an empty Motorcycles.json file.
+        val storingMotorcycles = MotorcycleAPI(JSONSerializer(File("motorcycles.json")))
+        storingMotorcycles.store()
+
+        //Loading the empty notes.json file into a new object
+        val loadedMotorcycles = MotorcycleAPI(JSONSerializer(File("motorcycles.json")))
+        loadedMotorcycles.load()
+
+        //Comparing the source of the Motorcycles (storingMotorcycles) with the json loaded Motorcycles (loadedMotorcycles)
+        assertEquals(0, storingMotorcycles.numberOfMotorcycles())
+        assertEquals(0, loadedMotorcycles.numberOfMotorcycles())
+        assertEquals(storingMotorcycles.numberOfMotorcycles(), loadedMotorcycles.numberOfMotorcycles())
+    }
+
+    @Test
+    fun `saving and loading an loaded collection in JSON doesn't loose data`() {
+        // Storing 3 Motorcycles to the Motorcycles.json file.
+        val storingMotorcycles = MotorcycleAPI(JSONSerializer(File("motorcycles.json")))
+        storingMotorcycles.add(honda!!)
+        storingMotorcycles.add(suzuki!!)
+        storingMotorcycles.add(harley!!)
+        storingMotorcycles.store()
+
+        //Loading Motorcycles.json into a different collection
+        val loadedMotorcycles = MotorcycleAPI(JSONSerializer(File("motorcycles.json")))
+        loadedMotorcycles.load()
+
+        //Comparing the source of the notes (storingNotes) with the json loaded notes (loadedNotes)
+        assertEquals(3, storingMotorcycles.numberOfMotorcycles())
+        assertEquals(3, loadedMotorcycles.numberOfMotorcycles())
+        assertEquals(storingMotorcycles.numberOfMotorcycles(), loadedMotorcycles.numberOfMotorcycles())
+        assertEquals(storingMotorcycles.findMotorcycle(0), loadedMotorcycles.findMotorcycle(0))
+        assertEquals(storingMotorcycles.findMotorcycle(1), loadedMotorcycles.findMotorcycle(1))
+        assertEquals(storingMotorcycles.findMotorcycle(2), loadedMotorcycles.findMotorcycle(2))
     }
 }
 
