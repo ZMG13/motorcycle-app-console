@@ -154,5 +154,15 @@ class MotorcycleAPI(serializerType: Serializer) {
     fun store() {
         serializer.write(motorcycles)
     }
+    fun archiveMotorcycle(indexToArchive: Int): Boolean {
+        if (isValidIndex(indexToArchive)) {
+            val motorcycleToArchive = motorcycles[indexToArchive]
+            if (!motorcycleToArchive.isMotorcycleArchived) {
+                motorcycleToArchive.isMotorcycleArchived = true
+                return true
+            }
+        }
+        return false
+    }
 }
 

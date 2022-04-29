@@ -307,5 +307,27 @@ class MotorcycleAPITest {
         assertEquals(storingMotorcycles.findMotorcycle(1), loadedMotorcycles.findMotorcycle(1))
         assertEquals(storingMotorcycles.findMotorcycle(2), loadedMotorcycles.findMotorcycle(2))
     }
+    @Nested
+    inner class ArchiveMotorcycles {
+        @Test
+        fun `archiving a motorcycle that does not exist returns false`(){
+            assertFalse(populatedMotorcycles!!.archiveMotorcycle(6))
+            assertFalse(populatedMotorcycles!!.archiveMotorcycle(-1))
+            assertFalse(emptyMotorcycles!!.archiveMotorcycle(0))
+        }
+
+        @Test
+        fun `archiving an already archived motorcycle returns false`(){
+            assertTrue(populatedMotorcycles!!.findMotorcycle(1)!!.isMotorcycleArchived)
+            assertFalse(populatedMotorcycles!!.archiveMotorcycle(1))
+        }
+
+        @Test
+        fun `archiving an active motorcycle that exists returns true and archives`() {
+            assertFalse(populatedMotorcycles!!.findMotorcycle(3)!!.isMotorcycleArchived)
+            assertTrue(populatedMotorcycles!!.archiveMotorcycle(3))
+            assertTrue(populatedMotorcycles!!.findMotorcycle(3)!!.isMotorcycleArchived)
+        }
+    }
 }
 
