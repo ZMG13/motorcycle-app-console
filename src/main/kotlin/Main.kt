@@ -27,6 +27,7 @@ fun mainMenu() :Int {
          > |   2) List all motorcycles      |
          > |   3) Update a motorcycle       |
          > |   4) Delete a motorcycle       |
+         > |   5) Archive a motorcycle      |
          > ----------------------------------
          > |   20) Save motorcycles         |
          > |   21) Load motorcycles         |
@@ -44,6 +45,7 @@ fun runMenu() {
             2  -> listMotorcycles()
             3  -> updateMotorcycle()
             4  -> deleteMotorcycle()
+            5  -> archiveMotorcycle()
             20 -> save()
             21 -> load()
             0  -> exitApp()
@@ -111,7 +113,23 @@ fun deleteMotorcycle(){
         }
     }
 }
+fun listActiveMotorcycles() {
+    println(motorcycleAPI.listActiveMotorcycles())
+}
 
+fun archiveMotorcycle() {
+    listActiveMotorcycles()
+    if (motorcycleAPI.numberOfActiveMotorcycles() > 0) {
+        //only ask the user to choose the motorcycle to archive if active motorcycles exist
+        val indexToArchive = readNextInt("Enter the index of the motorcycle to archive: ")
+        //pass the index of the note to motorcycleAPI for archiving and check for success.
+        if (motorcycleAPI.archiveMotorcycle(indexToArchive)) {
+            println("Archive Successful!")
+        } else {
+            println("Archive NOT Successful")
+        }
+    }
+}
 fun exitApp(){
     println("Exiting see ya!")
     exit(0)
@@ -131,4 +149,5 @@ fun load() {
     } catch (e: Exception) {
         System.err.println("Error reading from file: $e")
     }
+
 }
