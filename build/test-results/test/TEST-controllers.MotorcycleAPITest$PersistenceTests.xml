@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="controllers.MotorcycleAPITest$PersistenceTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-28T22:19:46" hostname="ZACH-LAPTOP" time="0.059">
-  <properties/>
-  <testcase name="saving and loading an empty collection in XML doesn't crash app()" classname="controllers.MotorcycleAPITest$PersistenceTests" time="0.045"/>
-  <testcase name="saving and loading an loaded collection in XML doesn't loose data()" classname="controllers.MotorcycleAPITest$PersistenceTests" time="0.013"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
