@@ -1,11 +1,8 @@
 package controllers
 
 import models.Motorcycle
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
 import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
@@ -361,6 +358,42 @@ class MotorcycleAPITest {
             assertEquals(0, emptyMotorcycles!!.numberOfMotorcyclesByLicense(1))
         }
     }
+    @Nested
+    inner class SearchMethods {
 
+        @Test
+        fun `search Motorcycles by title returns no Motorcycles when no Motorcycles with that title exist`() {
+            //Searching a populated collection for a title that doesn't exist.
+            Assertions.assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
+            val searchResults = populatedMotorcycles!!.searchByBrand("no results expected")
+            assertTrue(searchResults.isEmpty())
+
+            //Searching an empty collection
+            Assertions.assertEquals(0, emptyMotorcycles!!.numberOfMotorcycles())
+            assertTrue(emptyMotorcycles!!.searchByBrand("").isEmpty())
+        }
+
+        @Test
+        fun `search notes by title returns notes when notes with that title exist`() {
+            Assertions.assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
+
+            //Searching a populated collection for a full title that exists (case matches exactly)
+            var searchResults = populatedMotorcycles!!.searchByBrand("honda")
+            assertTrue(searchResults.contains("honda"))
+            assertFalse(searchResults.contains("ducati"))
+
+            //Searching a populated collection for a partial title that exists (case matches exactly)
+            searchResults = populatedMotorcycles!!.searchByBrand("kt")
+            //assertTrue(searchResults.contains("harley"))
+            assertTrue(searchResults.contains("ktm"))
+            assertFalse(searchResults.contains("Bmw"))
+
+            //Searching a populated collection for a partial title that exists (case doesn't match)
+            searchResults = populatedMotorcycles!!.searchByBrand("kTm")
+          //  assertTrue(searchResults.contains("harley"))
+            assertTrue(searchResults.contains("ktm"))
+            assertFalse(searchResults.contains("bmw"))
+        }
+    }
 }
 

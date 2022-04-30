@@ -15,17 +15,9 @@ class MotorcycleAPI(serializerType: Serializer) {
         return motorcycles.add(motorcycle)
     }
 
-    fun listAllMotorcycles(): String {
-        return if (motorcycles.isEmpty()) {
-            "No motorcycles stored"
-        } else {
-            var listOfMotorcycle = ""
-            for (i in motorcycles.indices) {
-                listOfMotorcycle += "${i}: ${motorcycles[i]} \n"
-            }
-            listOfMotorcycle
-        }
-    }
+    fun listAllMotorcycles(): String =
+        if  (motorcycles.isEmpty()) "No motorcycles stored"
+        else formatListString(motorcycles)
 
     fun numberOfMotorcycles(): Int {
         return motorcycles.size
@@ -42,50 +34,17 @@ class MotorcycleAPI(serializerType: Serializer) {
         return (index >= 0 && index < list.size)
     }
 
-    fun listActiveMotorcycles(): String {
-        return if (numberOfActiveMotorcycles() == 0) {
-            "No active Motorcycles stored"
-        } else {
-            var listOfActiveMotorcycles = ""
-            for (motorcycle in motorcycles) {
-                if (!motorcycle.isMotorcycleArchived) {
-                    listOfActiveMotorcycles += "${motorcycles.indexOf(motorcycle)}: $motorcycle \n"
-                }
-            }
-            listOfActiveMotorcycles
-        }
-    }
+    fun listActiveMotorcycles(): String =
+        if  (numberOfActiveMotorcycles() == 0)  "No active motorcycles stored"
+        else formatListString(motorcycles.filter { motorcycle -> !motorcycle.isMotorcycleArchived})
 
-    fun listArchivedMotorcycles(): String {
-        return if (numberOfArchivedMotorcycles() == 0) {
-            "No archived Motorcycles stored"
-        } else {
-            var listOfArchivedMotorcycles = ""
-            for (motorcycle in motorcycles) {
-                if (motorcycle.isMotorcycleArchived) {
-                    listOfArchivedMotorcycles += "${motorcycles.indexOf(motorcycle)}: $motorcycle \n"
-                }
-            }
-            listOfArchivedMotorcycles
-        }
-    }
+    fun listArchivedMotorcycles(): String =
+        if  (numberOfArchivedMotorcycles() == 0) "No archived motorcycles stored"
+        else formatListString(motorcycles.filter { motorcycle -> motorcycle.isMotorcycleArchived})
 
-    fun numberOfArchivedMotorcycles(): Int {
-        var counter = 0
-        for (motorcycle in motorcycles) {
-            if (motorcycle.isMotorcycleArchived) {
-                counter++
-            }
-        }
-        return counter
-    }
+    fun numberOfArchivedMotorcycles(): Int = motorcycles.count { motorcycle: Motorcycle -> motorcycle.isMotorcycleArchived }
 
-    fun numberOfActiveMotorcycles(): Int {
-      return  motorcycles.stream()
-            .filter{motorcycle: Motorcycle -> !motorcycle.isMotorcycleArchived}
-            .count()
-          .toInt()
-    }
+        fun numberOfActiveMotorcycles(): Int = motorcycles.count {motorcycle : Motorcycle -> !motorcycle.isMotorcycleArchived}
 
     fun listMotorcyclesBySelectedLicense(license: Int): String {
         return if (motorcycles.isEmpty()) {
@@ -107,15 +66,7 @@ class MotorcycleAPI(serializerType: Serializer) {
         }
     }
 
-    fun numberOfMotorcyclesByLicense(license: Int): Int {
-        var counter = 0
-        for (motorcycle in motorcycles) {
-            if (motorcycle.MotorcycleLicence == license) {
-                counter++
-            }
-        }
-        return counter
-    }
+    fun numberOfMotorcyclesByLicense(license: Int): Int = motorcycles.count { motorcycle: Motorcycle -> motorcycle.MotorcycleLicence == license }
 
     fun deleteMotorcycle(indexToDelete: Int): Motorcycle? {
         return if (isValidListIndex(indexToDelete, motorcycles)) {
@@ -161,5 +112,12 @@ class MotorcycleAPI(serializerType: Serializer) {
         }
         return false
     }
+    fun searchByBrand (searchString : String) =
+        formatListString(
+            motorcycles.filter { motorcycle -> motorcycle.MotorcycleBrand.contains(searchString, ignoreCase = true) })
+    fun formatListString(notesToFormat : List<Motorcycle>) : String =
+        notesToFormat
+            .joinToString (separator = "\n") { motorcycle ->
+                motorcycles.indexOf(motorcycle).toString() + ": " + motorcycle.toString() }
 }
 
