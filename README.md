@@ -24,3 +24,4 @@ notes-app-console was created for assignment three of our software systems two m
 - Load and save added 
 - update a motorcycle added 
 - delete a motorcycle added 
+- gitignore tracked files 
