@@ -37,6 +37,8 @@ fun mainMenu() :Int {
 
 }
 
+
+
 fun runMenu() {
     do {
         val option = mainMenu()
@@ -70,7 +72,26 @@ fun addMotorcycle(){
 
 fun listMotorcycles(){
    // logger.info { "listMotorcycles() function invoked" }
-    println(motorcycleAPI.listAllMotorcycles())
+   // println(motorcycleAPI.listAllMotorcycles())
+    if (motorcycleAPI.numberOfMotorcycles() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) View ALL Motorcycles    |
+                  > |   2) View ACTIVE Motorcycles |
+                  > |   3) View ARCHIVED Motorcycle|
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> listAllMotorcycles();
+            2 -> listActiveMotorcycles();
+            3 -> listArchivedMotorcycles();
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No Motorcycles stored");
+    }
 }
 
 fun updateMotorcycle(){
@@ -129,6 +150,14 @@ fun archiveMotorcycle() {
             println("Archive NOT Successful")
         }
     }
+}
+
+fun listAllMotorcycles() {
+    println(motorcycleAPI.listAllMotorcycles())
+}
+
+fun listArchivedMotorcycles() {
+    println(motorcycleAPI.listArchivedMotorcycles())
 }
 fun exitApp(){
     println("Exiting see ya!")
