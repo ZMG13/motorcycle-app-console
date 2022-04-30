@@ -16,3 +16,11 @@ notes-app-console was created for assignment three of our software systems two m
 - added test functionality 
 - worked on issues
 - added counting 
+# v3.0 features 
+- added a submenu 
+- added persistence 
+- JSON
+- XML 
+- Load and save added 
+- update a motorcycle added 
+- delete a motorcycle added 
