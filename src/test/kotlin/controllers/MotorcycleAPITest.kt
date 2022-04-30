@@ -329,5 +329,38 @@ class MotorcycleAPITest {
             assertTrue(populatedMotorcycles!!.findMotorcycle(3)!!.isMotorcycleArchived)
         }
     }
+
+    @Nested
+    inner class CountingMethods {
+
+        @Test
+        fun numberOfMotorcyclesCalculatedCorrectly() {
+            assertEquals(5, populatedMotorcycles!!.numberOfMotorcycles())
+            assertEquals(0, emptyMotorcycles!!.numberOfMotorcycles())
+        }
+
+        @Test
+        fun numberOfArchivedMotorcyclesCalculatedCorrectly() {
+            assertEquals(2, populatedMotorcycles!!.numberOfArchivedMotorcycles())
+            assertEquals(0, emptyMotorcycles!!.numberOfArchivedMotorcycles())
+        }
+
+        @Test
+        fun numberOfActiveMotorcyclesCalculatedCorrectly() {
+            assertEquals(3, populatedMotorcycles!!.numberOfActiveMotorcycles())
+            assertEquals(0, emptyMotorcycles!!.numberOfActiveMotorcycles())
+        }
+
+        @Test
+        fun numberOfMotorcyclesByLicenseCalculatedCorrectly() {
+            assertEquals(1, populatedMotorcycles!!.numberOfMotorcyclesByLicense(1))
+            assertEquals(1, populatedMotorcycles!!.numberOfMotorcyclesByLicense(2))
+            assertEquals(1, populatedMotorcycles!!.numberOfMotorcyclesByLicense(3))
+            assertEquals(2, populatedMotorcycles!!.numberOfMotorcyclesByLicense(4))
+          //  assertEquals(5, populatedMotorcycles!!.numberOfMotorcyclesByLicense(5))
+            assertEquals(0, emptyMotorcycles!!.numberOfMotorcyclesByLicense(1))
+        }
+    }
+
 }
 
