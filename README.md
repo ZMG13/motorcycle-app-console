@@ -25,3 +25,9 @@ notes-app-console was created for assignment three of our software systems two m
 - update a motorcycle added 
 - delete a motorcycle added 
 - gitignore tracked files 
+# v4.0 features 
+- list lambdas added
+- counting lambdas added
+- search feature added
+- search lambdas
+- refactoring
