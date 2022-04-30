@@ -81,13 +81,10 @@ class MotorcycleAPI(serializerType: Serializer) {
     }
 
     fun numberOfActiveMotorcycles(): Int {
-        var counter = 0
-        for (motorcycle in motorcycles) {
-            if (!motorcycle.isMotorcycleArchived) {
-                counter++
-            }
-        }
-        return counter
+      return  motorcycles.stream()
+            .filter{motorcycle: Motorcycle -> !motorcycle.isMotorcycleArchived}
+            .count()
+          .toInt()
     }
 
     fun listMotorcyclesBySelectedLicense(license: Int): String {
