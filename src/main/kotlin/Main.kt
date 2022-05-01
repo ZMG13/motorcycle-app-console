@@ -112,7 +112,7 @@ fun updateMotorcycle(){
                 println("Update Failed")
             }
         } else {
-            println("There are no notes for this index number")
+            println("There are no motorcycles for this index number")
         }
 
     }
